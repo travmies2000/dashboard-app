@@ -7,7 +7,7 @@
         body { font-family: sans-serif; background: #f3f4f6; padding: 20px; }
         .container { background: white; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto; }
         #app { display: none; }
-        .tab-btn { padding: 10px; cursor: pointer; background: #ddd; border: none; }
+        .tab-btn { padding: 10px; cursor: pointer; background: #ddd; border: none; margin-bottom: 5px; }
         .tab-content { display: none; padding: 20px; border: 1px solid #ddd; }
         .active { display: block; }
     </style>
@@ -15,18 +15,18 @@
 <body>
 
 <div class="container">
-    <!-- Login Section -->
     <div id="login">
         <h2>Digital Selling Global</h2>
         <input type="password" id="pass" placeholder="Password">
         <button onclick="checkPass()">Access</button>
     </div>
 
-    <!-- Dashboard Content -->
     <div id="app">
         <nav>
-            <button class="tab-btn" onclick="openTab('prompt')">Prompt Generator</button>
+            <button class="tab-btn" onclick="openTab('prompt')">Prompt Gen</button>
             <button class="tab-btn" onclick="openTab('trouble')">Troubleshooter</button>
+            <button class="tab-btn" onclick="openTab('tech')">Tech Stack</button>
+            <button class="tab-btn" onclick="openTab('sprint')">30-Day Sprint</button>
         </nav>
 
         <div id="prompt" class="tab-content active">
@@ -45,24 +45,31 @@
             <button onclick="diag()">Diagnose</button>
             <p id="diagOutput"></p>
         </div>
+
+        <div id="tech" class="tab-content">
+            <h3>Tech Stack Matrix</h3>
+            <ul>
+                <li><strong>Hosting:</strong> GitHub Pages</li>
+                <li><strong>Automation:</strong> AI Prompt Library</li>
+                <li><strong>Sales:</strong> PayHip Integration</li>
+            </ul>
+        </div>
+
+        <div id="sprint" class="tab-content">
+            <h3>30-Day Launch Sprint</h3>
+            <label><input type="checkbox"> Week 1: Lead Magnet Setup</label><br>
+            <label><input type="checkbox"> Week 2: Traffic Framework</label><br>
+            <label><input type="checkbox"> Week 3: Automation Logic</label><br>
+            <label><input type="checkbox"> Week 4: Final Launch</label>
+        </div>
     </div>
 </div>
 
 <script>
     function checkPass() { if(document.getElementById('pass').value === 'secure123') { document.getElementById('login').style.display='none'; document.getElementById('app').style.display='block'; } }
-    
-    function openTab(id) {
-        document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-
+    function openTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none'); document.getElementById(id).style.display = 'block'; }
     function genPrompt() { document.getElementById('promptOutput').innerText = "Expert Prompt: " + document.getElementById('promptInput').value; }
-    
-    function diag() { 
-        const issue = document.getElementById('issue').value;
-        const solution = issue === 'Low traffic' ? "Focus on SEO and social distribution." : "Review your offer clarity and lead magnet alignment.";
-        document.getElementById('diagOutput').innerText = "Solution: " + solution;
-    }
+    function diag() { const issue = document.getElementById('issue').value; document.getElementById('diagOutput').innerText = issue === 'Low traffic' ? "Focus on SEO and social distribution." : "Review offer clarity and lead magnet alignment."; }
 </script>
 </body>
 </html>
