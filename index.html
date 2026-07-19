@@ -5,32 +5,21 @@
     <title>Digital Selling Global | Master Dashboard</title>
     <script src="https://unpkg.com/lucide"></script>
     <style>
-        :root {
-            --slate: #334155;
-            --indigo: #4f46e5;
-            --bg: #f1f5f9;
-            --white: #ffffff;
-        }
+        :root { --slate: #334155; --indigo: #4f46e5; --bg: #f1f5f9; }
         body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--slate); padding: 50px 20px; }
-        .container { max-width: 900px; margin: auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .container { max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
         
-        /* Grid Structure */
+        /* Metric Card */
+        .metric-card { background: #eef2ff; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; border: 1px solid #c7d2fe; }
+        .metric-value { font-size: 1.5rem; font-weight: 700; color: var(--indigo); }
+        
         .dashboard-grid { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
-        nav { display: flex; flex-direction: column; gap: 12px; }
+        .tab-btn { display: flex; align-items: center; gap: 12px; padding: 14px; border: none; background: #f8fafc; cursor: pointer; border-radius: 10px; font-weight: 600; width: 100%; margin-bottom: 10px; }
+        .tab-btn.active { background: var(--indigo); color: white; }
         
-        /* Interactive Elements */
-        .tab-btn { display: flex; align-items: center; gap: 12px; padding: 14px; border: none; background: #f8fafc; cursor: pointer; border-radius: 10px; font-weight: 600; transition: all 0.2s ease; border: 1px solid #e2e8f0; }
-        .tab-btn:hover { background: #eef2ff; border-color: #c7d2fe; }
-        .tab-btn.active { background: var(--indigo); color: white; border-color: var(--indigo); }
-        
-        .action { background: var(--indigo); color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: transform 0.1s; }
-        .action:hover { transform: translateY(-1px); filter: brightness(1.1); }
-        
-        textarea, select { width: 100%; padding: 16px; border: 1px solid #cbd5e1; border-radius: 10px; margin: 15px 0; background: #f8fafc; }
-        
+        .action { background: var(--indigo); color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
@@ -43,6 +32,15 @@
     </div>
 
     <div id="app" style="display:none">
+        <!-- New Metric Card -->
+        <div class="metric-card">
+            <div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">System Readiness</div>
+                <div class="metric-value">85% Operational</div>
+            </div>
+            <i data-lucide="bar-chart-3" style="color: var(--indigo);"></i>
+        </div>
+
         <div class="dashboard-grid">
             <nav>
                 <button class="tab-btn active" onclick="openTab(event, 'builder')"><i data-lucide="zap"></i>Builder</button>
@@ -55,7 +53,7 @@
                     <textarea id="goal" rows="4" placeholder="Enter objective..." oninput="saveData()"></textarea>
                     <button class="action" onclick="buildPrompt()">Construct</button>
                     <button class="action" style="background:#64748b" onclick="copyToClipboard()">Copy</button>
-                    <div id="output" style="margin-top:20px; padding:20px; background:#f8fafc; border-radius:10px; border-left:4px solid var(--indigo);"></div>
+                    <div id="output" style="margin-top:20px; padding:20px; background:#f8fafc; border-radius:10px;"></div>
                 </div>
                 <div id="sprint" class="tab-content">
                     <h3>30-Day Launch Sprint</h3>
@@ -69,7 +67,7 @@
 
 <script>
     lucide.createIcons();
-    // (Existing persistence and tab functions remain here)
+    // (Ensure your existing persistence and tab functions are included here)
 </script>
 </body>
 </html>
