@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unlock Your Automated System</title>
     <link rel="stylesheet" href="style.css">
+    <title>Start Your Journey</title>
 </head>
 <body>
     <div class="container">
         <h1>Stop Prospecting Manually. Start Automating.</h1>
-        <p>Get instant access to the framework used to scale your network marketing business with AI.</p>
-        
         <form id="leadForm">
-            <input type="text" id="name" placeholder="Enter your name" required>
-            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
             <button type="submit">Get Instant Access</button>
         </form>
     </div>
-
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Send data to your Webhook then redirect
+            window.location.href = 'education.html';
+        });
+    </script>
 </body>
 </html>
