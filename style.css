@@ -1,43 +1,48 @@
 body { 
-    font-family: 'Inter', sans-serif; 
-    line-height: 1.8; 
-    background-color: #f8fafc; 
-    color: #1e293b; 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    line-height: 1.7; 
+    background-color: #ffffff; 
+    color: #334155; 
     margin: 0; 
-    padding: 40px 20px; 
+    padding: 60px 20px; 
 }
-.container { max-width: 800px; margin: 0 auto; }
-header { text-align: center; margin-bottom: 60px; }
-h1 { font-size: 3rem; color: #0f172a; margin-bottom: 10px; }
-.subtitle { font-size: 1.25rem; color: #64748b; }
+.container { max-width: 700px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 50px; }
+.overline { 
+    text-transform: uppercase; 
+    letter-spacing: 0.15em; 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    color: #64748b; 
+    margin-bottom: 10px; 
+}
+h1 { font-size: 2.5rem; color: #0f172a; margin: 0; }
 .card { 
-    background: #ffffff; 
-    padding: 50px; 
-    border-radius: 16px; 
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #e2e8f0;
+    padding: 40px; 
+    border-radius: 12px; 
 }
 button { 
     background: #0f172a; 
     color: #ffffff; 
-    padding: 18px 40px; 
+    padding: 16px 32px; 
     border: none; 
-    border-radius: 8px; 
+    border-radius: 6px; 
     cursor: pointer; 
-    font-size: 1.1rem; 
-    font-weight: 600;
-    transition: background 0.3s ease;
+    font-size: 1rem; 
+    font-weight: 500;
+    width: 100%;
 }
-button:hover { background: #334155; }
-.video-placeholder { 
-    background: #e2e8f0; 
-    height: 300px; 
+button:hover { background: #1e293b; }
+.diagram-placeholder { 
+    background: #f8fafc; 
+    border: 1px dashed #cbd5e1;
+    height: 250px; 
     margin: 30px 0; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    border-radius: 12px;
-    font-weight: bold;
-    color: #94a3b8;
+    color: #64748b;
+    border-radius: 8px;
+    font-style: italic;
 }
-ul { margin: 30px 0; padding-left: 20px; }
-li { margin-bottom: 15px; }
