@@ -2,72 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Digital Selling Global | Master Dashboard</title>
+    <title>Digital Selling Global | Pro Dashboard</title>
     <script src="https://unpkg.com/lucide"></script>
     <style>
-        :root { --slate: #334155; --indigo: #4f46e5; --bg: #f1f5f9; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--slate); padding: 50px 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+        :root { --glass: rgba(255, 255, 255, 0.7); --navy: #0f172a; --indigo: #4f46e5; }
+        body { font-family: 'Inter', sans-serif; background: #e2e8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .dashboard-container { width: 95%; max-width: 1000px; background: var(--glass); backdrop-filter: blur(10px); border: 1px solid white; border-radius: 24px; padding: 40px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); }
         
-        /* Metric Card */
-        .metric-card { background: #eef2ff; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; border: 1px solid #c7d2fe; }
-        .metric-value { font-size: 1.5rem; font-weight: 700; color: var(--indigo); }
+        /* Premium UI Components */
+        .metric-bar { display: flex; gap: 20px; margin-bottom: 30px; }
+        .card { background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; flex: 1; }
         
-        .dashboard-grid { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
-        .tab-btn { display: flex; align-items: center; gap: 12px; padding: 14px; border: none; background: #f8fafc; cursor: pointer; border-radius: 10px; font-weight: 600; width: 100%; margin-bottom: 10px; }
-        .tab-btn.active { background: var(--indigo); color: white; }
+        .action { background: var(--indigo); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .action:hover { box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3); }
         
-        .action { background: var(--indigo); color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .active { display: block; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="login">
-        <h2>Digital Selling Global</h2>
-        <input type="password" id="pass" placeholder="Security Key">
-        <button class="action" onclick="checkPass()">Unlock</button>
-    </div>
-
-    <div id="app" style="display:none">
-        <!-- New Metric Card -->
-        <div class="metric-card">
-            <div>
-                <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">System Readiness</div>
-                <div class="metric-value">85% Operational</div>
+<div class="dashboard-container">
+    <div id="app">
+        <div class="metric-bar">
+            <div class="card">
+                <p style="font-size: 0.75rem; color: #64748b;">Readiness Score</p>
+                <div id="readiness" style="font-size: 1.5rem; font-weight: 800;">50%</div>
             </div>
-            <i data-lucide="bar-chart-3" style="color: var(--indigo);"></i>
+            <div class="card">
+                <p style="font-size: 0.75rem; color: #64748b;">System Status</p>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #10b981;">Online</div>
+            </div>
         </div>
 
-        <div class="dashboard-grid">
-            <nav>
-                <button class="tab-btn active" onclick="openTab(event, 'builder')"><i data-lucide="zap"></i>Builder</button>
-                <button class="tab-btn" onclick="openTab(event, 'sprint')"><i data-lucide="check-square"></i>Sprint</button>
-            </nav>
-            <main>
-                <div id="builder" class="tab-content active">
-                    <h3>Smart Prompt Builder</h3>
-                    <select id="role" onchange="saveData()"><option>Expert Marketer</option><option>Technical Architect</option></select>
-                    <textarea id="goal" rows="4" placeholder="Enter objective..." oninput="saveData()"></textarea>
-                    <button class="action" onclick="buildPrompt()">Construct</button>
-                    <button class="action" style="background:#64748b" onclick="copyToClipboard()">Copy</button>
-                    <div id="output" style="margin-top:20px; padding:20px; background:#f8fafc; border-radius:10px;"></div>
-                </div>
-                <div id="sprint" class="tab-content">
-                    <h3>30-Day Launch Sprint</h3>
-                    <label><input type="checkbox" class="sprint-task" onchange="saveData()"> Week 1: Lead Magnet</label><br>
-                    <label><input type="checkbox" class="sprint-task" onchange="saveData()"> Week 2: Traffic Framework</label>
-                </div>
-            </main>
+        <nav style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button class="action" onclick="show('builder')">Prompt Builder</button>
+            <button class="action" style="background:#64748b;" onclick="show('sprint')">Launch Sprint</button>
+        </nav>
+
+        <div id="builder" class="tab-content active">
+            <textarea id="goal" style="width:100%; border-radius:12px; padding:15px; border:1px solid #e2e8f0;" placeholder="Define objective..."></textarea>
+            <button class="action" onclick="calculate()">Process Strategy</button>
+        </div>
+        
+        <div id="sprint" class="tab-content">
+            <input type="checkbox" onchange="updateScore()"> Task 1
+            <input type="checkbox" onchange="updateScore()"> Task 2
         </div>
     </div>
 </div>
 
 <script>
-    lucide.createIcons();
-    // (Ensure your existing persistence and tab functions are included here)
+    function updateScore() {
+        const checked = document.querySelectorAll('input:checked').length;
+        const total = document.querySelectorAll('input').length;
+        document.getElementById('readiness').innerText = Math.round((checked / total) * 100) + '%';
+    }
+    function show(id) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
 </script>
 </body>
 </html>
