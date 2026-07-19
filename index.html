@@ -2,50 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Selling Global | Master Dashboard</title>
     <style>
-        :root { --brand-color: #2563eb; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f3f4f6; padding: 40px; display: flex; justify-content: center; }
-        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
+        body { font-family: sans-serif; background: #f3f4f6; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto; }
         #app { display: none; }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: var(--brand-color); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-        h1 { color: #1f2937; }
+        .tab-btn { padding: 10px; cursor: pointer; background: #ddd; border: none; }
+        .tab-content { display: none; padding: 20px; border: 1px solid #ddd; }
+        .active { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Login Section -->
-        <div id="login">
-            <h2>Digital Selling Global</h2>
-            <p>Authentication Required</p>
-            <input type="password" id="pass" placeholder="Enter dashboard password">
-            <button onclick="checkPass()">Access Dashboard</button>
-        </div>
-
-        <!-- Dashboard Content -->
-        <div id="app">
-            <h1>Master Dashboard</h1>
-            <textarea id="input" rows="4" placeholder="Enter your goal or product idea..."></textarea>
-            <button onclick="generate()">Generate Optimized Prompt</button>
-            <div id="output" style="margin-top:20px; padding:10px; background:#e5e7eb; border-radius:4px;"></div>
-        </div>
+<div class="container">
+    <!-- Login Section -->
+    <div id="login">
+        <h2>Digital Selling Global</h2>
+        <input type="password" id="pass" placeholder="Password">
+        <button onclick="checkPass()">Access</button>
     </div>
 
-    <script>
-        function checkPass() {
-            if(document.getElementById('pass').value === 'secure123') { // Replace with your password
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-            } else { alert('Incorrect access key.'); }
-        }
+    <!-- Dashboard Content -->
+    <div id="app">
+        <nav>
+            <button class="tab-btn" onclick="openTab('prompt')">Prompt Generator</button>
+            <button class="tab-btn" onclick="openTab('trouble')">Troubleshooter</button>
+        </nav>
 
-        function generate() {
-            const val = document.getElementById('input').value;
-            document.getElementById('output').innerText = "System Instruction: You are an expert marketer. Analyze the following goal and provide a 5-step execution strategy: " + val;
-        }
-    </script>
+        <div id="prompt" class="tab-content active">
+            <h3>Prompt Generator</h3>
+            <textarea id="promptInput" rows="3" style="width:100%"></textarea>
+            <button onclick="genPrompt()">Generate</button>
+            <p id="promptOutput"></p>
+        </div>
+
+        <div id="trouble" class="tab-content">
+            <h3>Troubleshooting Matrix</h3>
+            <select id="issue">
+                <option value="Low traffic">Low traffic</option>
+                <option value="Zero conversions">Zero conversions</option>
+            </select>
+            <button onclick="diag()">Diagnose</button>
+            <p id="diagOutput"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkPass() { if(document.getElementById('pass').value === 'secure123') { document.getElementById('login').style.display='none'; document.getElementById('app').style.display='block'; } }
+    
+    function openTab(id) {
+        document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    function genPrompt() { document.getElementById('promptOutput').innerText = "Expert Prompt: " + document.getElementById('promptInput').value; }
+    
+    function diag() { 
+        const issue = document.getElementById('issue').value;
+        const solution = issue === 'Low traffic' ? "Focus on SEO and social distribution." : "Review your offer clarity and lead magnet alignment.";
+        document.getElementById('diagOutput').innerText = "Solution: " + solution;
+    }
+</script>
 </body>
 </html>
